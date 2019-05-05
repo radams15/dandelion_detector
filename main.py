@@ -9,7 +9,7 @@ if getattr(sys,"frozen",False):
     try:
         app.auto_update()
     except Exception as e:
-print ("ERROR UPDATING APP:", e)
+        print ("ERROR UPDATING APP:", e)
 
 def rgb2bgr(*rgb):
     return [rgb[2], rgb[1], rgb[0]]
