@@ -1,5 +1,15 @@
 import numpy as np
 import cv2
+import esky
+import sys
+
+if getattr(sys,"frozen",False):
+    #app = esky.Esky(sys.executable,"https://example-app.com/downloads/")
+    app = esky.Esky(sys.executable,"http://localhost:8000")
+    try:
+        app.auto_update()
+    except Exception as e:
+print ("ERROR UPDATING APP:", e)
 
 def rgb2bgr(*rgb):
     return [rgb[2], rgb[1], rgb[0]]
