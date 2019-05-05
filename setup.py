@@ -1,17 +1,19 @@
 import sys
-#from cx_Freeze import setup, Executable
-from esky import bdist_esky
-from distutils.core import setup
+from cx_Freeze import setup, Executable
 
-from esky.bdist_esky import Executable
+additional_mods = ['numpy.core._methods', "numpy.lib.format", "cv2"]
 
-additional_mods = ['numpy.core._methods', "numpy.lib.format"]
+# Dependencies are automatically detected, but it might need fine tuning.
+build_exe_options = {"packages": ["os"], "excludes": ["tkinter"], "includes": additional_mods}
 
-build_exe_options = {"includes": additional_mods,
-                     "freezer_module": "cxfreeze"}
+# GUI applications require a different base on Windows (the default is for a
+# console application).
+base = None
+if sys.platform == "win32":
+    base = "Win32GUI"
 
 setup(  name = "dandelion_detector",
         version = "0.1",
         description = "App to count dandelions in picture",
-        options = {"bdist_esky": build_exe_options},
-        scripts = [Executable("main.py")])
+        options = {"build_exe": build_exe_options},
+        executables = [Executable("main.py", base=base)])

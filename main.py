@@ -1,25 +1,22 @@
 import numpy as np
 import cv2
-import esky
-import sys
 
-if getattr(sys,"frozen",False):
-    #app = esky.Esky(sys.executable,"https://example-app.com/downloads/")
-    app = esky.Esky(sys.executable,"http://localhost:8000")
-    try:
-        app.auto_update()
-    except Exception as e:
-        print ("ERROR UPDATING APP:", e)
+import argparse
 
 def rgb2bgr(*rgb):
     return [rgb[2], rgb[1], rgb[0]]
 
 if __name__ == '__main__':
-    img = "image.JPG"
+    parser = argparse.ArgumentParser()
+    parser.add_argument("file")
+    parser.add_argument("-v", "--view", action="store_true")
+    parser.add_argument("-o", "--out")
 
-    out_file = "out.jpg"
-    view = False
-    save = True
+    args = parser.parse_args()
+    img = args.file #"image.JPG"
+
+    out_file = args.out
+    view = args.view
 
     image = cv2.imread(img)
 
@@ -84,8 +81,10 @@ if __name__ == '__main__':
 
     # Writes the output image
     image_out = image_contours
+
     if view:
         cv2.imshow("Edited", image_out)
         cv2.waitKey(0)
-    if save:
+
+    if out_file:
         cv2.imwrite(out_file, image_out)
