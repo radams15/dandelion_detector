@@ -20,23 +20,6 @@ if __name__ == '__main__':
     lower = np.array(lower, dtype="uint8")
     upper = np.array(upper, dtype="uint8")
 
-    """
-
-    # find the colors within the specified boundaries and apply
-    # the mask
-    mask = cv2.inRange(image, lower, upper)
-    output = cv2.bitwise_and(image, image, mask=mask)
-
-    # show the images
-    #image = cv2.resize(image, (400, 200))
-    output = cv2.resize(output, (800, 400))
-
-    #cv2.imshow("image", np.hstack([image, output]))
-
-    cv2.imshow("Filtered Image", output)
-    cv2.waitKey(0)
-    
-    """
     height_orig, width_orig = image.shape[:2]
 
     # output image with contours
@@ -86,6 +69,7 @@ if __name__ == '__main__':
         # cv2.putText(image_contours, "{:.0f}".format(cv2.contourArea(c)), (int(hull[0][0][0]), int(hull[0][0][1])), cv2.FONT_HERSHEY_SIMPLEX, 0.65, (255, 255, 255), 2)
 
     # Print the number of colonies of each color
+
     print(f"Counted Approximately {counter} Dandelions")
 
     # Writes the output image
